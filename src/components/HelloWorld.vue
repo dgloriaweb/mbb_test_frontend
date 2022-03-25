@@ -5,7 +5,8 @@
 </template>
 
 <script>
-import weatherService from '/services/weatherService.js'
+// import weatherService from '/services/weatherService.js'
+import axios from 'axios'
 
 export default {
   name: 'HelloWorld',
@@ -20,13 +21,14 @@ export default {
   },
   methods: {
     getData() {
-      weatherService.getWeather().then(
-        (response) => {
-          this.mydata = response
-        })
-        .catch(error => {
-          console.log(error)
-        })
+       return axios
+      .post('http://127.0.0.1:8000/weather', ['X-CSRF-TOKEN'='mBIlQgyz8pSSa913vYYu1K51QwcU7qCq84Ylplkn'])
+      .then((response) => {
+        return response.data
+      })
+      .catch((error) => {
+        return error
+      })
     }
   }
 }
